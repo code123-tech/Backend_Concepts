@@ -1,0 +1,2 @@
+- A Complete Guide on How Browsers Works can be found in the below reference. 
+- Refer: [How Browsers work](https://web.dev/articles/howbrowserswork)

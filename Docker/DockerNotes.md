@@ -54,7 +54,21 @@
 
 | Command                                                                         | Execution                                                                         |
 |:--------------------------------------------------------------------------------|:----------------------------------------------------------------------------------|
-| `docker pull <image>`                                                           | Download an image from docker registry, ex: Docker hub                            |
-| `docker build -t <image_name> <path>`                                           | Build an image from `Dockerfile` where <path> is directory containing Dockerfile. |
+| `docker -v`                                                                     | to see the docker version.                                                        |
+| `docker version`                                                                | to see the complete docker information with version.                              |
 | `docker image ls OR docker images`                                              | List all images available on your local machine.                                  |
-| `docker run -d -p <host_port>:<container_port> --name <container_name> <image>` | Run container from an image, maps host port to container port.                    |
+| `docker search [image-name]`                                                    | to search the images available in docker hub.                                     |
+| `docker history [image-name OR image-id]`                                       | to see the history of docker image steps used to create the container.            | 
+| `docker image rm [image-id]`                                                    | to remove a image from docker hub.                                                |                                      
+| `docker pull [image-name]:[tag]`                                                | Download an image from docker registry, ex: Docker hub                            |
+| `docker build -t [image-name] [path]`                                           | Build an image from `Dockerfile` where <path> is directory containing Dockerfile. |
+|                                                                                 |                                                                                   |
+| `docker run [image-name OR image-id]`                                           | to create the container.                                                          |
+| `docker ps -a`                                                                  | to see available containers (Running OR stopped).                                 |
+| `docker rm [container-id OR container-name]`                                    | to remove the container.                                                          |
+| `docker rm -f [container-id OR container-name]`                                 | to remove the running container.                                                  |
+| `docker [start OR stop] [container-id OR container-name]`                       | to start and stop the container.                                                  |
+| `docker exec -it [container-id] /bin/bash`                                      | to Enter into already running container.                                          |
+| `docker attach [container-id]`                                                  | to attach with already running container.                                         |
+|                                                                                 |                                                                                   |
+| `docker run -d -p [host_port]:[container_port] --name [container_name] [image]` | Run container from an image, maps host port to container port.                    |

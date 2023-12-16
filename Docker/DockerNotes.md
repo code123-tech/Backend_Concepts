@@ -52,23 +52,33 @@
 
 #### _**Some Basic Commands**_
 
-| Command                                                                         | Execution                                                                         |
-|:--------------------------------------------------------------------------------|:----------------------------------------------------------------------------------|
-| `docker -v`                                                                     | to see the docker version.                                                        |
-| `docker version`                                                                | to see the complete docker information with version.                              |
-| `docker image ls OR docker images`                                              | List all images available on your local machine.                                  |
-| `docker search [image-name]`                                                    | to search the images available in docker hub.                                     |
-| `docker history [image-name OR image-id]`                                       | to see the history of docker image steps used to create the container.            | 
-| `docker image rm [image-id]`                                                    | to remove a image from docker hub.                                                |                                      
-| `docker pull [image-name]:[tag]`                                                | Download an image from docker registry, ex: Docker hub                            |
-| `docker build -t [image-name] [path]`                                           | Build an image from `Dockerfile` where <path> is directory containing Dockerfile. |
-|                                                                                 |                                                                                   |
-| `docker run [image-name OR image-id]`                                           | to create the container.                                                          |
-| `docker ps -a`                                                                  | to see available containers (Running OR stopped).                                 |
-| `docker rm [container-id OR container-name]`                                    | to remove the container.                                                          |
-| `docker rm -f [container-id OR container-name]`                                 | to remove the running container.                                                  |
-| `docker [start OR stop] [container-id OR container-name]`                       | to start and stop the container.                                                  |
-| `docker exec -it [container-id] /bin/bash`                                      | to Enter into already running container.                                          |
-| `docker attach [container-id]`                                                  | to attach with already running container.                                         |
-|                                                                                 |                                                                                   |
-| `docker run -d -p [host_port]:[container_port] --name [container_name] [image]` | Run container from an image, maps host port to container port.                    |
+| Command                                                                         | Execution                                                                                                                   |
+|:--------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| `docker -v`                                                                     | to see the docker version.                                                                                                  |
+| `docker version`                                                                | to see the complete docker information with version.                                                                        |
+| `docker image ls OR docker images`                                              | List all images available on your local machine.                                                                            |
+| `docker search [image-name]`                                                    | to search the images available in docker hub.                                                                               |
+| `docker history [image-name OR image-id]`                                       | to see the history of docker image steps used to create the container.                                                      | 
+| `docker image rm [image-id]`                                                    | to remove a image from docker hub.                                                                                          |                                      
+| `docker pull [image-name]:[tag]`                                                | Download an image from docker registry, ex: Docker hub                                                                      |
+| `docker build -t [image-name] [path]`                                           | Build an image from `Dockerfile` where <path> is directory containing Dockerfile.                                           |
+|                                                                                 |                                                                                                                             |
+| `docker run [image-name OR image-id]`                                           | to create the container.                                                                                                    |
+| `docker ps -a`                                                                  | to see available containers (Running OR stopped).                                                                           |
+| `docker rm [container-id OR container-name]`                                    | to remove the container.                                                                                                    |
+| `docker rm -f [container-id OR container-name]`                                 | to remove the running container.                                                                                            |
+| `docker [start OR stop] [container-id OR container-name]`                       | to start and stop the container.                                                                                            |
+| `docker exec -it [container-id] /bin/bash`                                      | to Enter into already running container.                                                                                    |
+| `docker attach [container-id]`                                                  | to attach with already running container.                                                                                   |
+|                                                                                 |                                                                                                                             |
+| `docker commit [container-id] [image-name]:[tag]`                               | to create image from modified container.                                                                                    |
+| `docker image save [image-name]:[tag] -o [path]`                                | to save an image on the local machine as .tar.gz Ex: docker image save demo:latest -o C:/Users/Downloads/<file-name>.tar.gz |
+| `docker image load -i [path]`                                                   | to load an image from local machine to docker.                                                                              |
+|                                                                                 |                                                                                                                             |
+| `docker image prune -a`                                                         | to remove the unused images from docker which doesn't have any container.                                                   |
+| `docker container prune`                                                        | to remove the unused/Stopped containers from docker.                                                                        |
+| `docker volume prune`                                                           | to remove the unused volume.                                                                                                |
+| `docker network prune`                                                          | to remove the unused network.                                                                                               |
+| `docker system prune -a`                                                        | to remove all unused objects such as images, containers, volumes.                                                           |
+|                                                                                 |                                                                                                                             |
+| `docker run -d -p [host_port]:[container_port] --name [container_name] [image]` | Run container from an image, maps host port to container port.                                                              |

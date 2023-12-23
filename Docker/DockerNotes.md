@@ -1,3 +1,10 @@
+Contents
+- [What is Docker](#_what-is-docker_)
+- [Some Basic Terminologies Related to Docker](#some-basic-terminologies-related-to-docker)
+- [Some Basic Docker Commands](#_some-basic-docker-commands_)
+- [Dockerfile Instructions](#dockerfile-instructions)
+- [Manage Data in Docker](#manage-data-in-docker)
+
 #### _What is Docker_
 - Docker is an open-source containerization platform that allows developers to quickly create, deploy and run applications inside 
   containers. These containers allow developers to package up an application with all the parts it needs, such as libraries and
@@ -50,8 +57,7 @@
         defines the base image, application code, and the required dependencies. 
 
 
-#### _**Some Basic Commands**_
-
+#### _**Some Basic Docker Commands**_
 | Command                                                                         | Execution                                                                                                                   |
 |:--------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
 | `docker -v`                                                                     | to see the docker version.                                                                                                  |
@@ -82,3 +88,20 @@
 | `docker system prune -a`                                                        | to remove all unused objects such as images, containers, volumes.                                                           |
 |                                                                                 |                                                                                                                             |
 | `docker run -d -p [host_port]:[container_port] --name [container_name] [image]` | Run container from an image, maps host port to container port.                                                              |
+
+
+#### Dockerfile Instructions
+- Docker can build images automatically by reading the instructions from a `Dockerfile` which contains some text instructions.
+
+
+#### Manage Data in Docker
+- Docker uses a `writable layer` to store all files created inside a container, but this `writable layer` is `removed` when the container is removed. 
+  So, if we want to `persist` the data, we need to use `volumes mount` or `bind mounts`.
+- These layer is tightly coupled with the host machine, so it's difficult to move data from a running container.
+- These layer requires `storage driver` to manage file system, and this driver uses Union file system from Linux Kernel.
+----------------------
+
+- So, Docker has two options (mentioned above), through which data can be stored on host machine, and data is persisted. 
+- So, to attach a volume or bind mount to a container, we need to use `docker run` command with `-v` or `--volume` option, and for tmpfs, use `--tmpfs`.
+- Now, we can use `--mount` option instead of `-v` or `--volume` option, as it's more explicit and verbose.
+- Check all the commands description `docker run --help`.

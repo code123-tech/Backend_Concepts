@@ -88,11 +88,14 @@ Contents
 | `docker system prune -a`                                                        | to remove all unused objects such as images, containers, volumes.                                                           |
 |                                                                                 |                                                                                                                             |
 | `docker run -d -p [host_port]:[container_port] --name [container_name] [image]` | Run container from an image, maps host port to container port.                                                              |
+| `docker container logs [container-id OR container-name]`                        | Show the logs of service running inside a container.                                                                        |
+| `docker info`                                                                   | Displays system wise information regarding docker installation.                                                             |
 
 
 #### Dockerfile Instructions
 - Docker can build images automatically by reading the instructions from a `Dockerfile` which contains some text instructions.
-
+- Some of the useful commands are `FROM`, `ADD`, `COPY`, `
+- [Reference](https://docs.docker.com/engine/reference/builder/)
 
 #### Manage Data in Docker
 - Docker uses a `writable layer` to store all files created inside a container, but this `writable layer` is `removed` when the container is removed. 
@@ -105,3 +108,22 @@ Contents
 - So, to attach a volume or bind mount to a container, we need to use `docker run` command with `-v` or `--volume` option, and for tmpfs, use `--tmpfs`.
 - Now, we can use `--mount` option instead of `-v` or `--volume` option, as it's more explicit and verbose.
 - Check all the commands description `docker run --help`.
+- Three Types of Mounts are there in docker:
+1. `tempfs Mount`:
+    - Temporary Storage file system.
+    - Command: `docker container run -d -p 8080:80 --name=my-C1 --mount type=tmpfs,destination=/mylogs [image-name]`
+    - It's a `temporary storage`, so it's `not persisted` on host machine.
+2. `Bind Mount`:
+   - It's a `directory` on the `host machine`, which is `mounted` on the `container`.
+   - It is controlled by the host machine OS, not by the docker.
+   - Command: `docker container run -d -p 8080:80 --name=my-C2 --mount type=bind,src={SOURCE_LOCATION_OF_DOCKER_HOST_MACHINE_TO_STORE_CONTAINER_DATA},dst={LOCATION_DOCKER_CONTAINER_WHERE_DATA_STORED} [image-name]`
+3. `Volumes`:
+   - It is controlled by Docker, not by Host machine OS.
+   - Volumes are created under Location `{host_path}/docker/volume/{volume_name}`
+   - Commands for Volume:
+     - `docker volume create [volume-name]`
+     - `docker volume [ls OR list]`
+     - `docker volume rm [volume-name]`
+   - Firstly create a volume using the above first command
+   - Command: `docker container run -d -p 8080:80 --name=my-C3 --volume [volume-name]:[location directory for docker container logs] [image-name]`
+   - 

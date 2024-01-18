@@ -4,6 +4,7 @@ Contents
 - [Some Basic Docker Commands](#_some-basic-docker-commands_)
 - [Dockerfile Instructions](#dockerfile-instructions)
 - [Manage Data in Docker](#manage-data-in-docker)
+- [How to Push Docker Image to Docker Hub](#how-to-push-docker-image-to-docker-hub)
 
 #### _What is Docker_
 - Docker is an open-source containerization platform that allows developers to quickly create, deploy and run applications inside 
@@ -126,4 +127,13 @@ Contents
      - `docker volume rm [volume-name]`
    - Firstly create a volume using the above first command
    - Command: `docker container run -d -p 8080:80 --name=my-C3 --volume [volume-name]:[location directory for docker container logs] [image-name]`
-   - 
+
+
+#### How to Push Docker Image to Docker Hub
+ + Create a Docker Hub Account. 
+ + In the local, create a docker image using `docker build -t [docker-hub-username]/[image-name]:[tag] .` if not already exist.
+ + If Image is already created, then tag it using `docker tag [image-name]:[tag] [docker-hub-username]/[image-name]:[tag]`.
+ + Login to docker hub using `docker login`.
+ + Push the image to docker hub using `docker push [docker-hub-username]/[image-name]:[tag]`.
+ + Now, we can see the image on docker hub.d2                                                   
+

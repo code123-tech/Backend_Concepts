@@ -98,6 +98,7 @@ Contents
 - Some of the useful commands are `FROM`, `ADD`, `COPY`, `
 - [Reference](https://docs.docker.com/engine/reference/builder/)
 
+
 #### Manage Data in Docker
 - Docker uses a `writable layer` to store all files created inside a container, but this `writable layer` is `removed` when the container is removed. 
   So, if we want to `persist` the data, we need to use `volumes mount` or `bind mounts`.
@@ -137,3 +138,31 @@ Contents
  + Push the image to docker hub using `docker push [docker-hub-username]/[image-name]:[tag]`.
  + Now, we can see the image on docker hub.d2                                                   
 
+#### Docker Networking
+- Docker networking exists so that containers can communicate with each other, with hosting system and with the outside world.
+- docker provides five standard types of networks:
+  - `Bridge Network`: **It's a default network**, and it's a private internal network created by docker on the host machine. 
+                      It's a single host network, means containers on different hosts can not communicate with each other.
+  - `Host Network`: It's a multi host network, means containers on different hosts can not communicate with each other.
+  - `Overlay Network`: It's a multi-host network, means containers on different hosts can communicate with each other.
+  - `Macvlan Network`: It's a multi-host network, means containers on different hosts can communicate with each other.
+  - `None Network`: It's a single host network, means containers on different hosts can not communicate with each other.
+- **Some Docker networking commands**
+
+| Command                                          | Execution                                               |
+|:-------------------------------------------------|:--------------------------------------------------------|
+| `docker network [COMMAND]`                       | `connect`: to connect a network to a running container. |
+|                                                  | `create`: to create a network.                          |
+|                                                  | `disconnect`: to disconnect a container from a network. |
+|                                                  | `inspect`: display detailed info of network.            |
+|                                                  | `ls`: List of all the networks present in docker.       |
+|                                                  | `prune`: Remove all unused networks.                    |
+|                                                  | `rm`: Remove >= 1 networks.                             |
+| `docker network create [OPTIONS] [NETWORK-NAME]` | help to create a network with any network-name.         |
+**Steps to communicate between two containers (On bridge network)**
+1. Create a container using an image named [container-1].
+2. Create a container using an image named [container-2].
+3. Create a network named [network-1] with bridge, using `docker network create network-1 -d bridge`.
+4. Connect both the containers to the network [network-1] using `docker network connect network-1 [container-1]` and `docker network connect network-1 [container-2]`.
+5. Now, check if both the containers are able to communicating.
+    1. for this, run `docker exec -it container-2 ping container-1`. If it's able to ping, then it's communicating.

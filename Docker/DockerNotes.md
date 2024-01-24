@@ -138,6 +138,7 @@ Contents
  + Push the image to docker hub using `docker push [docker-hub-username]/[image-name]:[tag]`.
  + Now, we can see the image on docker hub.d2                                                   
 
+
 #### Docker Networking
 - Docker networking exists so that containers can communicate with each other, with hosting system and with the outside world.
 - docker provides five standard types of networks:
@@ -149,20 +150,29 @@ Contents
   - `None Network`: It's a single host network, means containers on different hosts can not communicate with each other.
 - **Some Docker networking commands**
 
-| Command                                          | Execution                                               |
-|:-------------------------------------------------|:--------------------------------------------------------|
-| `docker network [COMMAND]`                       | `connect`: to connect a network to a running container. |
-|                                                  | `create`: to create a network.                          |
-|                                                  | `disconnect`: to disconnect a container from a network. |
-|                                                  | `inspect`: display detailed info of network.            |
-|                                                  | `ls`: List of all the networks present in docker.       |
-|                                                  | `prune`: Remove all unused networks.                    |
-|                                                  | `rm`: Remove >= 1 networks.                             |
-| `docker network create [OPTIONS] [NETWORK-NAME]` | help to create a network with any network-name.         |
+| Command                                           | Execution                                                                                       |
+|:--------------------------------------------------|:------------------------------------------------------------------------------------------------|
+| `docker network [COMMAND]`                        | `connect`: to connect a network to a running container.                                         |
+|                                                   | `create`: to create a network.                                                                  |
+|                                                   | `disconnect`: to disconnect a container from a network.                                         |
+|                                                   | `inspect`: display detailed info of network.                                                    |
+|                                                   | `ls`: List of all the networks present in docker.                                               |
+|                                                   | `prune`: Remove all unused networks.                                                            |
+|                                                   | `rm`: Remove >= 1 networks.                                                                     |
+| `docker network create [OPTIONS] [NETWORK-NAME]`  | help to create a network with any network-name.                                                 |
+| `docker network inspect [OPTIONS] [NETWORK-NAME]` | help to inspect a given network, will get a json which contains information of created network. |
+| `docker network rm [NETWORK-NAME OR NETWORK-Id]`  | help to remove an existing network.                                                             |
+| `docker network prune`                            | All un-used network will be removed.                                                            |
 **Steps to communicate between two containers (On bridge network)**
 1. Create a container using an image named [container-1].
 2. Create a container using an image named [container-2].
-3. Create a network named [network-1] with bridge, using `docker network create network-1 -d bridge`.
+3. Create a network named [network-1] with bridge, using `docker network create network-1 -d bridge` (if do not specify bridge, default is also bridge network).
 4. Connect both the containers to the network [network-1] using `docker network connect network-1 [container-1]` and `docker network connect network-1 [container-2]`.
 5. Now, check if both the containers are able to communicating.
     1. for this, run `docker exec -it container-2 ping container-1`. If it's able to ping, then it's communicating.
+
+**Default Bridge Network v/s Custom Bridge Network**
+- In default bridge network, it is not allowed to ping the container using container name, but in custom bridge network, it is allowed.
+- Try to connect two containers with default bridge network, and try to ping one container from another using container name, it will not work.
+- Try to connect two containers with custom bridge network, and try to ping one container from another using container name, it will work.
+

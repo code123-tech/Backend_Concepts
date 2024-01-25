@@ -176,3 +176,115 @@ Contents
 - Try to connect two containers with default bridge network, and try to ping one container from another using container name, it will not work.
 - Try to connect two containers with custom bridge network, and try to ping one container from another using container name, it will work.
 
+**macvlan Network**
+- When multiple containers are connected to the macvlan network, each container will get a unique MAC address, and it will be able to communicate with each other.
+- But, it will not be able to communicate with the host machine, and vice-versa.
+**Ipvlan Network**
+- When multiple containers are connected to the Ipvlan Network, each container will get a unique IP address, and it will be able to communicate with each other.
+** Check for both the networks by creating two containers, connect with each type of network, and do network inspect for both network.
+```
+docker network create ipnetwork -d ipvlan
+docker network create macnetwork -d macvlan
+
+# check for ipnetwork
+docker run -itd --name=container-1 --network=ipnetwork alpine
+docker run -itd --name=container-2 --network=ipnetwork alpine
+docker network inspect ipnetwork
+[{
+    "Name": "ipnetwork",
+    "Id": "5a16fd8c8c856e4b4eb2ec6e72fa5c854f52f544150451789770a79a16bee292",
+    "Created": "2024-01-25T18:49:09.335961036Z",
+    "Scope": "local",
+    "Driver": "ipvlan",
+    "EnableIPv6": false,
+    "IPAM": {
+        "Driver": "default",
+        "Options": {},
+        "Config": [
+            {
+                "Subnet": "172.20.0.0/16",
+                "Gateway": "172.20.0.1"
+            }
+        ]
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+        "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {
+        "3a4310788ebf2e5e44623f55e83a8e505319417898602a884802b4714f5d1162": {
+            "Name": "intelligent_taussig",
+            "EndpointID": "9d167182ad73c8d3115a5e12fd44aad34b6458addcb3a78de16d6aacee005aee",
+            "MacAddress": "",
+            "IPv4Address": "172.20.0.3/16",
+            "IPv6Address": ""
+        },
+        "74409b2e07d18612c79354daaa461677a982754554273ad2ea85023e09b2b165": {
+            "Name": "my-C3",
+            "EndpointID": "2ac80ff075a4523deaaa503a357b306dfe10d04e413f59834666a69cb59b157a",
+            "MacAddress": "",
+            "IPv4Address": "172.20.0.2/16",
+            "IPv6Address": ""
+        }
+    },
+    "Options": {},
+    "Labels": {}
+}]
+
+
+# check for macnetwork
+docker run -itd --name=container-1 --network=macnetwork alpine
+docker run -itd --name=container-2 --network=macnetwork alpine
+docker network inspect macnetwork 
+[{
+    "Name": "macnetwork",
+    "Id": "441d2649e1bbd8abf2c6a7d62777a4aaf5078064205f217a1ac17e1f79e7daa5",
+    "Created": "2024-01-25T18:48:50.371095897Z",
+    "Scope": "local",
+    "Driver": "macvlan",
+    "EnableIPv6": false,
+    "IPAM": {
+        "Driver": "default",
+        "Options": {},
+        "Config": [
+            {
+                "Subnet": "172.19.0.0/16",
+                "Gateway": "172.19.0.1"
+            }
+        ]
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+        "Network": ""
+    },
+    "ConfigOnly": false,
+    "Containers": {
+        "3a4310788ebf2e5e44623f55e83a8e505319417898602a884802b4714f5d1162": {
+            "Name": "intelligent_taussig",
+            "EndpointID": "32db499f0ff1ce8f2efbcda49b337265ee79dedb16ed1fce838720009ec2de53",
+            "MacAddress": "02:42:ac:13:00:03",
+            "IPv4Address": "172.19.0.3/16",
+            "IPv6Address": ""
+        },
+        "74409b2e07d18612c79354daaa461677a982754554273ad2ea85023e09b2b165": {
+            "Name": "my-C3",
+            "EndpointID": "9b099f300e1fc939c2bc0dbca7284d7d53890f594a6eb7a8828e16f85b134c75",
+            "MacAddress": "02:42:ac:13:00:02",
+            "IPv4Address": "172.19.0.2/16",
+            "IPv6Address": ""
+        }
+    },
+    "Options": {},
+    "Labels": {}
+}]
+```
+
+**None network**
+- When a container is connected to the None network, it will not be able to communicate with any other container, and with the host machine as well.
+
+

@@ -287,4 +287,5 @@ docker network inspect macnetwork
 **None network**
 - When a container is connected to the None network, it will not be able to communicate with any other container, and with the host machine as well.
 
+**How to work with Overlay network**
 

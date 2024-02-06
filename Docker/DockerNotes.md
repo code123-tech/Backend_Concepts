@@ -288,4 +288,18 @@ docker network inspect macnetwork
 - When a container is connected to the None network, it will not be able to communicate with any other container, and with the host machine as well.
 
 **How to work with Overlay network**
+- Overlay network is a multi host network, which means containers running on multiple hosts can communicate with each other.
+- For testing this overlay network, we are going to create EC2 instances as follows:
+  - Master Node
+  - Worker Node 1
+  - Worker Node 2
+
+- On AWS, create two EC2 instances with Ubuntu 20.04, and install docker on both the instances.
+- connect with those instances using ssh command `ssh -i key.pem ubuntu@public-ip`.
+- Change the hostname using `sudo hostnamectl set-hostname <hostname>`.
+- Installation Steps for Docker on each EC2 container:
+  - `sudo apt-get update`
+  - `sudo apt install docker.io -y`
+  - `sudo usermod -aG docker ${USER}`
+  - `docker version`
 

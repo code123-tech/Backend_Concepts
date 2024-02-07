@@ -302,4 +302,24 @@ docker network inspect macnetwork
   - `sudo apt install docker.io -y`
   - `sudo usermod -aG docker ${USER}`
   - `docker version`
+- Pull the image from your public repository.
+- Initialize swarm on the master node using `docker swarm init --advertise-addr <master-node-ip>`.
+- Check the swarm status using `docker node ls`.
+- Join a worker node to master node using `docker swarm join --token <token> <master-node-ip>:<port>`.
+- Now, again check the swarm status using `docker node ls`.
+- Push a public image to your Docker hub.
+- On `master` node, create a network using `docker network create mynetwork --driver overlay --subnet=50.40.0.0/16 --gateway=50.40.0.1`
+- Now, create a service using `docker service create --name myservice --network mynetwork --replicas 3 -p 8080:80 <image-name>`.
+- Now, check `docker ps` on each node, you will find container list on each node.
+- Check `docker network ls` on worker nodes, you will find the network created on master node.
+- Check `docker service ps <service-name>` on master node, you will find the container list on each node.
+
+# Call from worker node 1 to worker node 2
+- On worker node 1, run `docker exec -it <container-id> /bin/bash` and then run `ping -c 3 <container-ip-of-worker-node-2>`.
+- install ping using `apt-get update -y && apt-get install iputils-ping -y`.
+- Now, run `ping -c 3 <container-ip-of-worker-node-2>`, and you will get the response.
+
+# Docker Swarm
+- To manage clusters of docker hosts, we use Docker Swarm.
+- It internally uses Overlay network.
 

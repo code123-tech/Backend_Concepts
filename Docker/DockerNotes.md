@@ -5,6 +5,8 @@ Contents
 - [Dockerfile Instructions](#dockerfile-instructions)
 - [Manage Data in Docker](#manage-data-in-docker)
 - [How to Push Docker Image to Docker Hub](#how-to-push-docker-image-to-docker-hub)
+- [Docker Networking](#docker-networking)
+- [Docker Compose](#docker-compose)
 
 #### _What is Docker_
 - Docker is an open-source containerization platform that allows developers to quickly create, deploy and run applications inside 
@@ -314,12 +316,17 @@ docker network inspect macnetwork
 - Check `docker network ls` on worker nodes, you will find the network created on master node.
 - Check `docker service ps <service-name>` on master node, you will find the container list on each node.
 
-# Call from worker node 1 to worker node 2
+**Call from worker node 1 to worker node 2**
 - On worker node 1, run `docker exec -it <container-id> /bin/bash` and then run `ping -c 3 <container-ip-of-worker-node-2>`.
 - install ping using `apt-get update -y && apt-get install iputils-ping -y`.
 - Now, run `ping -c 3 <container-ip-of-worker-node-2>`, and you will get the response.
 
-# Docker Swarm
+**Docker Swarm**
 - To manage clusters of docker hosts, we use Docker Swarm.
 - It internally uses Overlay network.
 
+
+#### Docker Compose
+- Docker compose usually used to run multi-container applications.
+- It uses a `YAML` file to configure the application services.
+- Then, with a single command, we can create and start all the services from our configuration.

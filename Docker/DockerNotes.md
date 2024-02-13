@@ -328,5 +328,34 @@ docker network inspect macnetwork
 
 #### Docker Compose
 - Docker compose usually used to run multi-container applications.
-- It uses a `YAML` file to configure the application services.
+- It uses a `YAML (Yet another markup language)` file to configure the application services.
 - Then, with a single command, we can create and start all the services from our configuration.
+**Basic Understanding of Docker Compose file (docker-compose.yml)**
+```yaml
+version: '3'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    restart: always
+    network_mode: bridge
+    volumes:
+      - /home/ubuntu/docker/nginx:/usr/share/nginx/html
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydb  
+volumes:
+    mydata:
+        driver: local
+```
+- `version`: It's a version of docker-compose file.
+- `services`: It's a list of services, where each service is a container.
+- `web`: It's a service name.
+- `image`: It's a docker image name.
+- `ports`: It's a list of ports to expose.
+- `restart`: It's a policy to restart the container.
+- `network_mode`: It's a network mode to use.
+- `volumes`: It's a list of volumes to mount.
